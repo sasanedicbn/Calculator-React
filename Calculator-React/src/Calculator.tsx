@@ -1,12 +1,15 @@
+import { useState } from "react";
 
 const Calculator = () => {
- 
+  const [firstOutput, setFirstOutput] = useState(0)
+  const [secondOutput, setSecondOutput] = useState('')
+  const [operation, setOperation] = useState('')
 
   return (
     <div className="calculator-container"> 
       <div className="calculator">
-        <div className="output-secondary">{outputSecond}</div>
-        <div className="output-first">{outputFirst}</div>
+        <div className="output-secondary">{secondOutput}</div>
+        <div className="output-first">{firstOutput}</div>
       </div>
       <div className="buttons">
         <button className="btn btn-clear">CLEAR</button>
