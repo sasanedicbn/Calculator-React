@@ -47,3 +47,50 @@ body {
   word-break: break-all;
   margin-bottom: 0.8rem;
 }
+/* OUTPUT  */
+.output-first,
+.output-secondary {
+  border: none;
+  text-align: right;
+  font-size: 3rem;
+  padding: 1rem 0.6rem 0.2rem 0.6rem;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.output-first {
+  height: 4rem;
+}
+
+.output-secondary {
+  font-size: 1.5rem;
+  height: 2.5rem;
+}
+/* BUTTONS */
+.btn-clear {
+  grid-column: 1 / span 2;
+  background-color: #16c3cf;
+}
+
+.btn-clear:hover {
+  background-color: #4d8be7;
+}
+
+.btn-clear:active {
+  background-color: #349e7e;
+}
+
+.btn-delete {
+  grid-column: span 2;
+  background-color: #f03e3e;
+}
+
+.btn-delete:hover {
+  background-color: #d83838;
+}
+
+.btn-delete:active {
+  background-color: #c03232;
+}
+
