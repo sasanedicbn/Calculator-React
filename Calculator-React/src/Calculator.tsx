@@ -10,7 +10,11 @@ const Calculator = () => {
         if (operation !== '') {
             setSecondOutput((prevOutput) => prevOutput + number);
         } else {
-           
+            if (firstOutput === '0') {
+                setFirstOutput(number);
+            } else {
+                setFirstOutput((prevOutput) => prevOutput + number);
+            }
         }
     }
 
