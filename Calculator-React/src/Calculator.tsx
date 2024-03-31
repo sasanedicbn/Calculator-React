@@ -1,11 +1,12 @@
 
-
 const Calculator = () => {
+ 
+
   return (
-    <div className="container">
+    <div className="calculator-container"> 
       <div className="calculator">
-        <div className="output-secondary"></div>
-        <div className="output-first"></div>
+        <div className="output-secondary">{outputSecond}</div>
+        <div className="output-first">{outputFirst}</div>
       </div>
       <div className="buttons">
         <button className="btn btn-clear">CLEAR</button>
