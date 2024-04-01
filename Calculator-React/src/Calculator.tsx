@@ -29,7 +29,36 @@ const Calculator = () => {
         setFirstOutput("");
     }
 
-  
+    function logicOperation() {
+        let result = null;
+        let firstNum = parseFloat(firstOutput);
+        let secondNum = parseFloat(secondOutput);
+
+        switch (operation) {
+            case "+":
+                result = firstNum + secondNum;
+                break;
+            case "-":
+                result = secondNum - firstNum;
+                break;
+            case "/":
+                if (firstNum === 0) {
+                    alert("Cannot divide by zero");
+                    return;
+                }
+                result = secondNum / firstNum;
+                break;
+            case "*":
+                result = firstNum * secondNum;
+                break;
+            default:
+                return;
+        }
+
+        setFirstOutput(result.toString());
+        setSecondOutput("");
+        setOperation("");
+    }
 
    
 
