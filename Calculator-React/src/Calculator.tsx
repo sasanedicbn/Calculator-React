@@ -60,7 +60,13 @@ const Calculator = () => {
         setOperation("");
     }
 
-   
+    function deleteOneElement() {
+        if (firstOutput.length > 0) {
+            setFirstOutput((prevOutput) => prevOutput.slice(0, -1));
+        }
+    }
+
+    
 
     return (
         <div className="container">
