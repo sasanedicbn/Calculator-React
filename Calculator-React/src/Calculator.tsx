@@ -66,7 +66,11 @@ const Calculator = () => {
         }
     }
 
-    
+    function inputDecimal() {
+        if (!firstOutput.includes(".")) {
+            setFirstOutput((prevOutput) => prevOutput + ".");
+        }
+    }
 
     return (
         <div className="container">
