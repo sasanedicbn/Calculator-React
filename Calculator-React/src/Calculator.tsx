@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 
 const Calculator = () => {
     const [firstOutput, setFirstOutput] = useState("0");
@@ -12,7 +12,11 @@ const Calculator = () => {
     }
 
     function inputNumber(number) {
-        if (!operation || (operation && !secondOutput)) {
+        if (operation && !secondOutput) {
+            setFirstOutput(number);
+            setSecondOutput(`${firstOutput}${operation}`);
+            setOperation("");
+        } else if (!operation || (operation && !secondOutput)) {
             setFirstOutput((prevOutput) => prevOutput === "0" ? number : prevOutput + number);
         } else if (operation && secondOutput) {
             setFirstOutput((prevOutput) => prevOutput + number);
@@ -21,7 +25,8 @@ const Calculator = () => {
 
     function setOperationFunc(op) {
         if (operation !== "") {
-            logicOperation();
+            logicOperation(); 
+            setFirstOutput(firstOutput);
         }
 
         setOperation(op);
@@ -30,7 +35,7 @@ const Calculator = () => {
     }
 
     function logicOperation() {
-        let result = null;
+        let result;
         let firstNum = parseFloat(firstOutput);
         let secondNum = parseFloat(secondOutput);
 
@@ -43,7 +48,6 @@ const Calculator = () => {
                 break;
             case "/":
                 if (firstNum === 0) {
-                    alert("Cannot divide by zero");
                     return;
                 }
                 result = secondNum / firstNum;
@@ -106,16 +110,3 @@ const Calculator = () => {
 };
 
 export default Calculator;
-
-
-{/* <div className='container'>
-    <img src="link slike"/>
-    <h3>Jessica Randal</h3>
-    <p>London, United Kingdom</p>
-    <p>Front-end developer ...</p>
-    <p>GitHub</p>
-    <p>Frontend Mentor</p>
-    <p>LinkedIn</p>
-    <p>Twitter</p>
-    <p>Instagram</p>
-</div> */}
