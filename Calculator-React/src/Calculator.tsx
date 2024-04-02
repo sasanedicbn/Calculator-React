@@ -1,112 +1,168 @@
-import  { useState } from 'react';
+import "./App.css";
+import { useState } from "react";
 
-const Calculator = () => {
-    const [firstOutput, setFirstOutput] = useState("0");
-    const [secondOutput, setSecondOutput] = useState('');
-    const [operation, setOperation] = useState('');
+function Calculator() {
+  const [firstOperand, setFirstOperand] = useState("0");
+  const [secondOperand, setSecondOperand] = useState("");
+  const [operation, setOperation] = useState("");
 
-    function resetCalculator() {
-        setFirstOutput("0");
-        setSecondOutput("");
-        setOperation("");
+  const chooseNumber = (e) => {
+    const value = e.target.textContent;
+
+    if (firstOperand === "0") {
+      setFirstOperand("");
     }
+    setFirstOperand((prev) => prev + value);
+  };
 
-    function inputNumber(number) {
-        if (operation && !secondOutput) {
-            setFirstOutput(number);
-            setSecondOutput(`${firstOutput}${operation}`);
-            setOperation("");
-        } else if (!operation || (operation && !secondOutput)) {
-            setFirstOutput((prevOutput) => prevOutput === "0" ? number : prevOutput + number);
-        } else if (operation && secondOutput) {
-            setFirstOutput((prevOutput) => prevOutput + number);
-        }
+  const chooseOperator = (e) => {
+    const value = e.target.textContent;
+
+    if (!firstOperand) return;
+
+    if (firstOperand && secondOperand && operation) {
+      const result = String(
+        calculateResult(firstOperand, secondOperand, operation)
+      );
+      setSecondOperand(result);
+      setFirstOperand("");
+      setOperation(value);
+    } else {
+      setSecondOperand(firstOperand);
+      setFirstOperand("");
+      setOperation(value);
     }
+  };
 
-    function setOperationFunc(op) {
-        if (operation !== "") {
-            logicOperation(); 
-            setFirstOutput(firstOutput);
-        }
-
-        setOperation(op);
-        setSecondOutput(`${firstOutput}${op}`);
-        setFirstOutput("");
-    }
-
-    function logicOperation() {
-        let result;
-        let firstNum = parseFloat(firstOutput);
-        let secondNum = parseFloat(secondOutput);
-
-        switch (operation) {
-            case "+":
-                result = firstNum + secondNum;
-                break;
-            case "-":
-                result = secondNum - firstNum;
-                break;
-            case "/":
-                if (firstNum === 0) {
-                    return;
-                }
-                result = secondNum / firstNum;
-                break;
-            case "*":
-                result = firstNum * secondNum;
-                break;
-            default:
-                return;
-        }
-
-        setFirstOutput(result.toString());
-        setSecondOutput("");
-        setOperation("");
-    }
-
-    function deleteOneElement() {
-        if (firstOutput.length > 0) {
-            setFirstOutput((prevOutput) => prevOutput.slice(0, -1));
-        }
-    }
-
-    function inputDecimal() {
-        if (!firstOutput.includes(".")) {
-            setFirstOutput((prevOutput) => prevOutput + ".");
-        }
-    }
-
-    return (
-        <div className="container">
-            <div className="calculator">
-                <div className="output-secondary">{secondOutput}</div>
-                <div className="output-first">{firstOutput}</div>
-            </div>
-            <div className="buttons">
-                <button className="btn btn-clear" onClick={resetCalculator}>CLEAR</button>
-                <button className="btn btn-delete" onClick={deleteOneElement}>DELETE</button>
-                <button className="btn btn-number" onClick={() => inputNumber('7')}>7</button>
-                <button className="btn btn-number" onClick={() => inputNumber('8')}>8</button>
-                <button className="btn btn-number" onClick={() => inputNumber('9')}>9</button>
-                <button className="btn btn-operation" onClick={() => setOperationFunc('/')}>/</button>
-
-                <button className="btn btn-number" onClick={() => inputNumber('4')}>4</button>
-                <button className="btn btn-number" onClick={() => inputNumber('5')}>5</button>
-                <button className="btn btn-number" onClick={() => inputNumber('6')}>6</button>
-                <button className="btn btn-operation" onClick={() => setOperationFunc('*')}>*</button>
-
-                <button className="btn btn-number" onClick={() => inputNumber('1')}>1</button>
-                <button className="btn btn-number" onClick={() => inputNumber('2')}>2</button>
-                <button className="btn btn-number" onClick={() => inputNumber('3')}>3</button>
-                <button className="btn btn-operation" onClick={() => setOperationFunc('-')}>-</button>
-
-                <button className="btn btn-dot" onClick={inputDecimal}>.</button>
-                <button className="btn btn-number" onClick={() => inputNumber('0')}>0</button>
-                <button className="btn btn-operation-equal" onClick={logicOperation}>=</button>
-                <button className="btn btn-operation" onClick={() => setOperationFunc('+')}>+</button>
-            </div>
-        </div>
+  const chooseEquals = () => {
+    const result = String(
+      calculateResult(firstOperand, secondOperand, operation)
     );
-};
+    setFirstOperand(result);
+    setSecondOperand("");
+    setOperation("");
+  };
+
+  const calculateResult = (first, second, operation) => {
+    const firstToNumber = Number(first);
+    const secondToNumber = Number(second);
+    let result;
+    switch (operation) {
+      case "+":
+        result = secondToNumber + firstToNumber;
+        break;
+      case "-":
+        result = secondToNumber - firstToNumber;
+        break;
+      case "*":
+        result = secondToNumber * firstToNumber;
+        break;
+      case "/":
+        result = secondToNumber / firstToNumber;
+        break;
+      default:
+        result = NaN;
+    }
+    return result;
+  };
+
+  const chooseDot = (e) => {
+    const value = e.target.textContent;
+    if (firstOperand.length === 0 && !firstOperand.includes(".")) {
+      setFirstOperand("0" + value);
+    } else if (!firstOperand.includes(".")) {
+      setFirstOperand((prev) => prev + value);
+    }
+  };
+
+  const clearOperands = () => {
+    setFirstOperand("0");
+    setSecondOperand("");
+    setOperation("");
+  };
+
+  const deleteOperand = () => {
+    if (firstOperand !== "0") {
+      setFirstOperand((prev) => {
+        const Result = prev.slice(0, -1);
+        return Result === "" ? "0" : Result;
+      });
+    }
+  };
+
+  return (
+    <>
+      <div className="calculator">
+        <div className="display">
+          <div className="calculations">
+            {secondOperand}
+            {operation}
+          </div>
+          <div className="resultDiv">{firstOperand}</div>
+        </div>
+
+        <div className="clearDelete">
+          <div className="clearBtn" onClick={clearOperands}>
+            CLEAR
+          </div>
+          <div className="deleteBtn" onClick={deleteOperand}>
+            DELETE
+          </div>
+        </div>
+        <div className="buttons">
+          <div onClick={chooseNumber} className="numberBtn">
+            7
+          </div>
+          <div onClick={chooseNumber} className="numberBtn">
+            8
+          </div>
+          <div onClick={chooseNumber} className="numberBtn">
+            9
+          </div>
+          <div onClick={(e) => chooseOperator(e)} className="operatorBtn">
+            /
+          </div>
+          <div onClick={chooseNumber} className="numberBtn">
+            4
+          </div>
+          <div onClick={chooseNumber} className="numberBtn">
+            5
+          </div>
+          <div onClick={chooseNumber} className="numberBtn">
+            6
+          </div>
+          <div onClick={chooseOperator} className="operatorBtn">
+            *
+          </div>
+          <div onClick={chooseNumber} className="numberBtn">
+            1
+          </div>
+          <div onClick={chooseNumber} className="numberBtn">
+            2
+          </div>
+          <div onClick={chooseNumber} className="numberBtn">
+            3
+          </div>
+          <div onClick={chooseOperator} className="operatorBtn">
+            -
+          </div>
+          <div onClick={chooseNumber} className="numberBtn">
+            0
+          </div>
+          <div onClick={chooseDot} className="dotBtn">
+            .
+          </div>
+          <div onClick={chooseEquals} className="equalBtn">
+            =
+          </div>
+          <div onClick={chooseOperator} className="operatorBtn">
+            +
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
 
 export default Calculator;
+

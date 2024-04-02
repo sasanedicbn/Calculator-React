@@ -8,7 +8,7 @@ body {
   background-color: #eceaea;
 }
 
-.container {
+.calculator {
   width: 25rem; 
   background-color: #606d6e;
   margin: 5rem auto;
@@ -23,7 +23,7 @@ body {
   gap: 0.6rem;
 }
 
-.btn {
+.numberBtn, .operatorBtn, .dotBtn, .equalBtn {
   padding: 1.2rem;
   text-align: center;
   font-size: 2rem;
@@ -33,85 +33,61 @@ body {
   border-radius: 4px;
 }
 
-.btn:hover {
+.numberBtn:hover, .operatorBtn:hover, .dotBtn:hover, .equalBtn:hover {
   background-color: #e6e6e6;
 }
 
-.btn:active {
+.numberBtn:active, .operatorBtn:active, .dotBtn:active, .equalBtn:active {
   background-color: #cccccc;
 }
 
-.calculator {
+.display {
   text-align: right;
   word-wrap: break-word;
   word-break: break-all;
   margin-bottom: 0.8rem;
 }
-/* OUTPUT  */
-.output-first,
-.output-secondary {
+
+.resultDiv, .calculations {
   border: none;
   text-align: right;
-  font-size: 3rem;
+  font-size: 2rem;
   padding: 1rem 0.6rem 0.2rem 0.6rem;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.output-first {
+.resultDiv {
   height: 4rem;
 }
 
-.output-secondary {
+.calculations {
   font-size: 1.5rem;
   height: 2.5rem;
 }
-/* BUTTONS */
-.btn-clear {
-  grid-column: 1 / span 2;
-  background-color: #16c3cf;
+
+.clearBtn, .deleteBtn {
+  padding: 0.50rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
+  border: none;
+  background-color: #dc3545;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.clearBtn{
+  background-color: blue;
 }
 
-.btn-clear:hover {
-  background-color: #4d8be7;
+.clearBtn:hover {
+  background-color: rgb(74, 74, 201) ;
 }
 
-.btn-clear:active {
-  background-color: #349e7e;
+.deleteBtn:hover{
+  background-color: #c82333;
 }
-
-.btn-delete {
-  grid-column: span 2;
-  background-color: #f03e3e;
-}
-
-.btn-delete:hover {
-  background-color: #d83838;
-}
-
-.btn-delete:active {
-  background-color: #c03232;
-}
-
-/* FOOTER */
-.footer-description {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  font-size: 24px;
-  margin-right: 10px;
-  color: #555;
-  font-weight: bold;
-}
-
-.icon {
-  font-size: 28px;
-  color: #3498db;
-  margin: 4px;
-}
-
-.icon:hover {
-  transform: scale(1.2);
-  transition: all 
+.clearBtn:active, .deleteBtn:active {
+  background-color: #bd2130;
 }
