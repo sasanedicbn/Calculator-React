@@ -15,8 +15,8 @@ function Calculator() {
     setFirstOperand((prev) => prev + value);
   };
 
-  const chooseOperator = (e) => {
-    const value = e.target.textContent;
+  const chooseOperator = (e: MouseEvent<HTMLDivElement>) => {
+    const value =  (e.target as HTMLDivElement).textContent;
 
     if (!firstOperand) return;
 
