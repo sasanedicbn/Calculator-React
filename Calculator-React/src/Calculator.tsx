@@ -43,7 +43,7 @@ function Calculator() {
     setOperation("");
   };
 
-  const calculateResult = (first, second, operation) => {
+  const calculateResult = (first:string, second:string, operation:string) => {
     const firstToNumber = Number(first);
     const secondToNumber = Number(second);
     let result;
