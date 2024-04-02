@@ -66,7 +66,14 @@ function Calculator() {
     return result;
   };
 
-
+  const chooseDot = (e) => {
+    const value = e.target.textContent;
+    if (firstOperand.length === 0 && !firstOperand.includes(".")) {
+      setFirstOperand("0" + value);
+    } else if (!firstOperand.includes(".")) {
+      setFirstOperand((prev) => prev + value);
+    }
+  };
 
   const clearOperands = () => {
     setFirstOperand("0");
