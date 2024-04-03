@@ -14,9 +14,15 @@ function Calculator() {
     }
     setFirstOperand((prev) => prev + value);
   };
+  
+  const clearOperands = () => {
+    setFirstOperand("0");
+    setSecondOperand("");
+    setOperation("");
+  };
 
-  const chooseOperator = (e: MouseEvent<HTMLDivElement>) => {
-    const value =  (e.target as HTMLDivElement).textContent;
+  const chooseOperator = (e) => {
+    const value = e.target.textContent;
 
     if (!firstOperand) return;
 
@@ -75,17 +81,12 @@ function Calculator() {
     }
   };
 
-  const clearOperands = () => {
-    setFirstOperand("0");
-    setSecondOperand("");
-    setOperation("");
-  };
 
   const deleteOperand = () => {
     if (firstOperand !== "0") {
       setFirstOperand((prev) => {
-        const Result = prev.slice(0, -1);
-        return Result === "" ? "0" : Result;
+        const result = prev.slice(0, -1);
+        return result === "" ? "0" : result;
       });
     }
   };
@@ -102,62 +103,62 @@ function Calculator() {
         </div>
 
         <div className="clearDelete">
-          <div className="clearBtn" onClick={clearOperands}>
+          <button className="clearBtn" onClick={clearOperands}>
             CLEAR
-          </div>
-          <div className="deleteBtn" onClick={deleteOperand}>
+          </button>
+          <button className="deleteBtn" onClick={deleteOperand}>
             DELETE
-          </div>
+          </button>
         </div>
         <div className="buttons">
-          <div onClick={chooseNumber} className="numberBtn">
+          <button onClick={chooseNumber} className="numberBtn">
             7
-          </div>
-          <div onClick={chooseNumber} className="numberBtn">
+          </button>
+          <button onClick={chooseNumber} className="numberBtn">
             8
-          </div>
-          <div onClick={chooseNumber} className="numberBtn">
+          </button>
+          <button onClick={chooseNumber} className="numberBtn">
             9
-          </div>
-          <div onClick={(e) => chooseOperator(e)} className="operatorBtn">
+          </button>
+          <button onClick={chooseOperator} className="operatorBtn">
             /
-          </div>
-          <div onClick={chooseNumber} className="numberBtn">
+          </button>
+          <button onClick={chooseNumber} className="numberBtn">
             4
-          </div>
-          <div onClick={chooseNumber} className="numberBtn">
+          </button>
+          <button onClick={chooseNumber} className="numberBtn">
             5
-          </div>
-          <div onClick={chooseNumber} className="numberBtn">
+          </button>
+          <button onClick={chooseNumber} className="numberBtn">
             6
-          </div>
-          <div onClick={chooseOperator} className="operatorBtn">
+          </button>
+          <button onClick={chooseOperator} className="operatorBtn">
             *
-          </div>
-          <div onClick={chooseNumber} className="numberBtn">
+          </button>
+          <button onClick={chooseNumber} className="numberBtn">
             1
-          </div>
-          <div onClick={chooseNumber} className="numberBtn">
+          </button>
+          <button onClick={chooseNumber} className="numberBtn">
             2
-          </div>
-          <div onClick={chooseNumber} className="numberBtn">
+          </button>
+          <button onClick={chooseNumber} className="numberBtn">
             3
-          </div>
-          <div onClick={chooseOperator} className="operatorBtn">
+          </button>
+          <button onClick={chooseOperator} className="operatorBtn">
             -
-          </div>
-          <div onClick={chooseNumber} className="numberBtn">
+          </button>
+          <button onClick={chooseNumber} className="numberBtn">
             0
-          </div>
-          <div onClick={chooseDot} className="dotBtn">
+          </button>
+          <button onClick={chooseDot} className="dotBtn">
             .
-          </div>
-          <div onClick={chooseEquals} className="equalBtn">
+          </button>
+          <button onClick={chooseEquals} className="equalBtn">
             =
-          </div>
-          <div onClick={chooseOperator} className="operatorBtn">
+          </button>
+          <button onClick={chooseOperator} className="operatorBtn">
             +
-          </div>
+          </button>
         </div>
       </div>
     </>
@@ -165,4 +166,3 @@ function Calculator() {
 }
 
 export default Calculator;
-
