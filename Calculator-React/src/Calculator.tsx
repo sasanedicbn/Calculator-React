@@ -1,70 +1,77 @@
-import "./App.css";
-import { useState } from "react";
+import  { useState, MouseEvent } from "react";
 
 function Calculator() {
-  const [firstOperand, setFirstOperand] = useState("0");
+  const [firstOperand, setFirstOperand] = useState<string>("0");
   const [secondOperand, setSecondOperand] = useState("");
   const [operation, setOperation] = useState("");
 
-  const chooseNumber = (e) => {
-    const value = e.target.textContent;
-
+  const chooseNumber = (e:React.MouseEvent) => {
+    const value = e.currentTarget.textContent;
+    
     if (firstOperand === "0") {
       setFirstOperand("");
     }
-    setFirstOperand((prev) => prev + value);
+    if (value) {
+      setFirstOperand((prev) => prev + value);
+    }
   };
-  
+
   const clearOperands = () => {
     setFirstOperand("0");
     setSecondOperand("");
     setOperation("");
   };
 
-  const chooseOperator = (e) => {
-    const value = e.target.textContent;
+  const chooseOperator = (e: MouseEvent<HTMLButtonElement>) => {
+    const value = e.currentTarget.textContent;
 
     if (!firstOperand) return;
 
     if (firstOperand && secondOperand && operation) {
       const result = String(
-        calculateResult(firstOperand, secondOperand, operation)
+        calculateResult(Number(firstOperand), Number(secondOperand), operation)
       );
       setSecondOperand(result);
       setFirstOperand("");
-      setOperation(value);
+      if (value) {
+        setOperation(value);
+      }
     } else {
       setSecondOperand(firstOperand);
       setFirstOperand("");
-      setOperation(value);
+      if (value) {
+        setOperation(value);
+      }
     }
   };
 
   const chooseEquals = () => {
     const result = String(
-      calculateResult(firstOperand, secondOperand, operation)
+      calculateResult(Number(firstOperand), Number(secondOperand), operation)
     );
     setFirstOperand(result);
     setSecondOperand("");
     setOperation("");
   };
 
-  const calculateResult = (first:string, second:string, operation:string) => {
-    const firstToNumber = Number(first);
-    const secondToNumber = Number(second);
-    let result;
+  const calculateResult = (
+    first: number,
+    second: number,
+    operation: string
+  ): number => {
+    let result: number;
     switch (operation) {
       case "+":
-        result = secondToNumber + firstToNumber;
+        result = second + first;
         break;
       case "-":
-        result = secondToNumber - firstToNumber;
+        result = second - first;
         break;
       case "*":
-        result = secondToNumber * firstToNumber;
+        result = second * first;
         break;
       case "/":
-        result = secondToNumber / firstToNumber;
+        result = second / first;
         break;
       default:
         result = NaN;
@@ -72,15 +79,14 @@ function Calculator() {
     return result;
   };
 
-  const chooseDot = (e) => {
-    const value = e.target.textContent;
+  const chooseDot = (e: MouseEvent<HTMLButtonElement>) => {
+    const value = e.currentTarget.textContent;
     if (firstOperand.length === 0 && !firstOperand.includes(".")) {
-      setFirstOperand("0" + value);
+      setFirstOperand("0" + (value ? value : ""));
     } else if (!firstOperand.includes(".")) {
-      setFirstOperand((prev) => prev + value);
+      setFirstOperand((prev) => prev + (value ? value : ""));
     }
   };
-
 
   const deleteOperand = () => {
     if (firstOperand !== "0") {
